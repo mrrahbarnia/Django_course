@@ -3,11 +3,11 @@ from django.db import models
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    # image
+    image = models.ImageField(upload_to='blog',default='blog/default.jpg')
     # tag
     # category
     # author
-    counted_views = models.ImageField(default=0)
+    counted_views = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
