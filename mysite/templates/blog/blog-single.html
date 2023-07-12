@@ -45,7 +45,7 @@
 							
 						</ul>
 						<div class="user-details row">
-							<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{post.author.get_full_name}}</a> <span
+							<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'blog:author' author_username=post.author.username %}">{{post.author.get_full_name}}</a> <span
 									class="lnr lnr-user"></span></p>
 							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.published_date|date:"D d M Y"}}</a> <span
 									class="lnr lnr-calendar-full"></span></p>
@@ -235,20 +235,14 @@
 			</div>
 			<div class="col-lg-4 sidebar-widgets">
 				<div class="widget-wrap">
-					<div class="single-sidebar-widget search-widget">
-						<form class="search-form" action="#">
-							<input placeholder="Search Posts" name="search" type="text" onfocus="this.placeholder = ''"
-								onblur="this.placeholder = 'Search Posts'">
-							<button type="submit"><i class="fa fa-search"></i></button>
-						</form>
-					</div>
+					{% include 'blog/blog-searchbar.html' %}
 					{% include 'blog/blog-writer.html' %}
 
 					{% latest_posts %}
 
 					{% include 'blog/blog-ads.html' %}
 
-					{% post_categories %}
+					{% popular_categories %}
 					{% include 'blog/blog-newsletter.html' %}
 					
 					{% include 'blog/blog-tagclouds.html' %}
