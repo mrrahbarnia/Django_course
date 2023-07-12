@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 {% block container %}
 
 
@@ -96,7 +97,7 @@
 					<div class="col-lg-3  col-md-3 meta-details">
 						<ul class="tags">
 							{% for cat in post.category.all %}
-							<li><a href="#">{{cat.name}}</a></li>{% if not forloop.last %},{% endif %}
+							<li><a href="{% url 'blog:category' cat_name=cat.name %}">{{cat.name}}</a></li>{% if not forloop.last %},{% endif %}
 							{% endfor %}
 							
 							
@@ -162,9 +163,9 @@
 						</form>
 					</div>
                     {% include 'blog/blog-writer.html' %}
-					{% include 'blog/blog-popularposts.html' %}
+					{% latest_posts %}
 					{% include 'blog/blog-ads.html' %}
-					{% include 'blog/blog-postcategories.html' %}
+					{% post_categories %}
 					{% include 'blog/blog-newsletter.html' %}
 					{% include 'blog/blog-tagclouds.html' %}
 				</div>
