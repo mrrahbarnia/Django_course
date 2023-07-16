@@ -1,5 +1,5 @@
 from django.contrib import admin
-from website.models import Contact
+from website.models import Contact,Newslettter
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
@@ -8,6 +8,6 @@ class ContactAdmin(admin.ModelAdmin):
     list_filter = ('email',)
     search_fields = ('name','message')
 
-
-
-
+@admin.register(Newslettter)
+class NewsletterAdmin(admin.ModelAdmin):
+    pass

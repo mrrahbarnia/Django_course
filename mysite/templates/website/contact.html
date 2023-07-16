@@ -12,8 +12,10 @@
 				<h1 class="text-white">
 					Contact Us
 				</h1>
-				<p class="text-white link-nav"><a href="{% url 'website:index'%}">Home </a> <span class="lnr lnr-arrow-right"></span>
-					<a href="contact.html"> Contact Us</a></p>
+				<p class="text-white link-nav"><a href="{% url 'website:index'%}">Home </a> <span
+						class="lnr lnr-arrow-right"></span>
+					<a href="contact.html"> Contact Us</a>
+				</p>
 			</div>
 		</div>
 	</div>
@@ -57,7 +59,8 @@
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<form class="form-area contact-form text-right" id="myForm" action="mail.php" method="post">
+				<form class="form-area contact-form text-right" action="{% url 'website:contact' %}" method="post">
+					{% csrf_token %}
 					<div class="row">
 						<div class="col-lg-6 form-group">
 							<input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''"
@@ -84,6 +87,13 @@
 						</div>
 					</div>
 				</form>
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+						{% endfor %}
+				</ul>
+				{% endif %}
 			</div>
 		</div>
 	</div>
