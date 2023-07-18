@@ -1,12 +1,13 @@
-from django.forms import ModelForm
-from website.models import Contact,Newslettter
+from django import forms
+from website.models import Newslettter
 
-class ContactForm(ModelForm):
-    class Meta:
-        model = Contact
-        fields = "__all__"
-
-class NewsletterForm(ModelForm):
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=255)
+    email = forms.EmailField()
+    subject = forms.CharField(required=False)
+    message = forms.CharField(widget=forms.Textarea)
+    
+class NewsletterForm(forms.ModelForm):
 
     class Meta:
         model = Newslettter

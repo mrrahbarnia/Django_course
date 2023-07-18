@@ -1,4 +1,5 @@
-from django.shortcuts import render,HttpResponseRedirect,HttpResponse
+from django.shortcuts import render,HttpResponseRedirect
+from website.models import Contact
 from website.forms import ContactForm,NewsletterForm
 from django.contrib import messages
 
@@ -14,10 +15,13 @@ def contact_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.add_message(request,messages.SUCCESS,'Your message submitted successfully')
-        else:
-            messages.add_message(request,messages.ERROR,"your message didnt submit...try again")
+            i = Contact()
+            i.name = "Unknown"
+            i.email = form.cleaned_data['email']
+            i.subject = form.cleaned_data['subject']
+            i.message = form.cleaned_data['message']
+            i.save()
+            messages.success(request,'Your message submitted successfully')
     form = ContactForm()
     return render(request,'website/contact.html',{'form':form})
 
@@ -26,10 +30,8 @@ def news_letter(request):
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request,messages.SUCCESS,"your Email address was sent")
+            messages.success(request,"your Email address was sent")
             return HttpResponseRedirect("/")
-        else:
-            messages.add_message(request,messages.ERROR,"your Email address was not sent...try again")
     form = NewsletterForm()
     return render(request,"website/contact.html",{"form":form})
 
