@@ -1,5 +1,5 @@
-
 {% load blog_tags %}
+{% load humanize %}
 <div class="single-sidebar-widget popular-post-widget">
     <h4 class="popular-title">Latest posts</h4>
     {% for post in posts %}
@@ -12,7 +12,7 @@
                 <a href="{% url 'blog:single' pid=post.id %}">
                     <h6>{{post.title}}</h6>
                 </a>
-                <p>{{ post.published_date|date:"l" }}</p>
+                <p>{{ post.published_date|naturaltime }}</p>
                
             </div>
         </div>
