@@ -22,6 +22,8 @@ def contact_view(request):
             i.message = form.cleaned_data['message']
             i.save()
             messages.success(request,'Your message submitted successfully')
+        else:
+            messages.error(request,"Your message didn't submit")
     form = ContactForm()
     return render(request,'website/contact.html',{'form':form})
 

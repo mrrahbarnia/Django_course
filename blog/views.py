@@ -1,7 +1,9 @@
 from django.shortcuts import render,get_object_or_404
-from blog.models import Post
+from blog.models import Post,Comment
 from django.utils import timezone
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from blog.forms import CommentForm
+from django.contrib import messages
 
 # Create your views here.
 def blog_view(request,**kwargs):
@@ -10,6 +12,8 @@ def blog_view(request,**kwargs):
         posts = posts.filter(category__name=kwargs['cat_name'])
     if kwargs.get('author_username') != None:
         posts = posts.filter(author__username=kwargs['author_username'])
+    if kwargs.get('tag_name') != None:
+        posts = posts.filter(tags__name__in=[kwargs['tag_name']])
     posts = Paginator(posts,3)
     page_number = request.GET.get('page')
     try:
@@ -23,8 +27,17 @@ def blog_view(request,**kwargs):
 
 
 def blog_single(request,pid):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Your comment submitted successfully")
+        else:
+            messages.error(request,"Your comment didn't submit")
+    form = CommentForm(request.POST)
     post = get_object_or_404(Post,pk=pid,published_date__lte = timezone.now())
-    context = {'post':post}
+    comments = Comment.objects.filter(post=post,approved = True)
+    context = {'post':post,'comments':comments,'form':form}
     post.counted_views += 1
     post.save()
     return render(request,'blog/blog-single.html',context)
