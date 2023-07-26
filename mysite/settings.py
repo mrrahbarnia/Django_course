@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django_summernote',
     'django_extensions',
     'website.apps.WebsiteConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'accounts'
 ]
 
 # robots 
@@ -104,6 +105,7 @@ SUMMERNOTE_CONFIG = {
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview', 'help']],
         ],}}
+
 
 
 MIDDLEWARE = [

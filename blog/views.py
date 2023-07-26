@@ -4,8 +4,11 @@ from django.utils import timezone
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from blog.forms import CommentForm
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
-# Create your views here.
+
+
 def blog_view(request,**kwargs):
     posts = Post.objects.filter(published_date__lte = timezone.now())
     if kwargs.get('cat_name') != None:
@@ -34,13 +37,22 @@ def blog_single(request,pid):
             messages.success(request,"Your comment submitted successfully")
         else:
             messages.error(request,"Your comment didn't submit")
-    form = CommentForm(request.POST)
     post = get_object_or_404(Post,pk=pid,published_date__lte = timezone.now())
     comments = Comment.objects.filter(post=post,approved = True)
+    form = CommentForm()
     context = {'post':post,'comments':comments,'form':form}
     post.counted_views += 1
     post.save()
-    return render(request,'blog/blog-single.html',context)
+    if not post.login_require:
+        return render(request,'blog/blog-single.html',context)
+    else:
+        if request.user.is_authenticated:
+            return render(request,'blog/blog-single.html',context)
+        else:
+            return HttpResponseRedirect(reverse('accounts:login'))
+
+        
+    
 
 def search_bar(request):
     posts = Post.objects.filter(published_date__lte = timezone.now())
