@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from accounts.form import SignupForm
 
 
 
@@ -41,7 +42,7 @@ def logout_view(request):
 def signup_view(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
-            form = UserCreationForm(request.POST)
+            form = SignupForm(request.POST)
             if form.is_valid():
                 form.save()
                 username = form.cleaned_data.get('username')
@@ -51,7 +52,7 @@ def signup_view(request):
                 messages.success(request,f"Welcome {request.user.username}")
                 return redirect("/")
         else:
-            form = UserCreationForm()
+            form = SignupForm()
     else:
         messages.info(request,f'You have already signed up as {request.user.username}')
         return redirect("/")

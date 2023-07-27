@@ -49,7 +49,9 @@ def blog_single(request,pid):
         if request.user.is_authenticated:
             return render(request,'blog/blog-single.html',context)
         else:
+            messages.info(request,"You must login first to see special posts.")
             return HttpResponseRedirect(reverse('accounts:login'))
+            
 
         
     
