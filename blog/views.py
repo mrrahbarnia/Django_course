@@ -52,8 +52,6 @@ def blog_single(request,pid):
             messages.info(request,"You must login first to see special posts.")
             return HttpResponseRedirect(reverse('accounts:login'))
             
-
-        
     
 
 def search_bar(request):

@@ -26,4 +26,3 @@ def function(pid):
     return Comment.objects.filter(post=post,approved = True).count()
 
 
-

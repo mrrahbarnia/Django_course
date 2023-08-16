@@ -5,7 +5,6 @@
 {% block container %}
 
 
-
 <!-- start banner Area -->
 <section class="relative about-banner">
 	<div class="overlay overlay-bg"></div>
@@ -83,32 +82,39 @@
 						<div
 							class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 							<div class="thumb">
-								<a href="#"><img class="img-fluid" src="{% static 'img/blog/prev.jpg' %}" alt=""></a>
+								{% if post.get_previous_by_created_date %}
+								
+								<a href="{% url 'blog:single' pid=post.get_previous_by_created_date.id %}"><img class="img-fluid" src="{{post.get_previous_by_created_date.image.url}}" alt=""></a>
 							</div>
 							<div class="arrow">
 								<a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
 							</div>
+							
 							<div class="detials">
 								<p>Prev Post</p>
-								<a href="#">
-									<h4>Space The Final Frontier</h4>
+								<a href="{% url 'blog:single' pid=post.get_previous_by_created_date.id %}">
+									<h4>{{post.get_previous_by_created_date.title}}</h4>
 								</a>
 							</div>
+							{% endif %}
 						</div>
 						<div
 							class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+							{% if post.get_next_by_created_date %}
 							<div class="detials">
 								<p>Next Post</p>
-								<a href="#">
-									<h4>Telescopes 101</h4>
+								<a href="{% url 'blog:single' pid=post.get_next_by_created_date.id %}">
+									<h4>{{post.get_previous_by_created_date.title}}</h4>
 								</a>
 							</div>
+							
 							<div class="arrow">
 								<a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
 							</div>
 							<div class="thumb">
-								<a href="#"><img class="img-fluid" src="{% static 'img/blog/next.jpg' %}" alt=""></a>
+								<a href="{% url 'blog:single' pid=post.get_next_by_created_date.id %}"><img class="img-fluid" src="{{post.get_next_by_created_date.image.url}}" alt=""></a>
 							</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -144,7 +150,7 @@
 							{% csrf_token %}
 							<input type="hidden" name="post" value="{{post.id}}">
 							{% if request.user.is_authenticated %}
-							<input type="hidden" name="name" value="{{request.user.get_full_name}}">
+							<input type="hidden" name="name" value="{{request.user.username}}">
 							<input type="hidden" name="email" value="{{request.user.email}}">
 							{% else %}
 							<div class="form-group form-inline">
@@ -169,10 +175,12 @@
 									required=""></textarea>
 							</div>
 							<button type="submit" class="primary-btn text-uppercase">Post Comment</button>
+							
 						</form>
 				</div>
 
 			</div>
+		
 			<div class="col-lg-4 sidebar-widgets">
 				<div class="widget-wrap">
 					{% include 'blog/blog-searchbar.html' %}

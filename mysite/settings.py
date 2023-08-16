@@ -49,8 +49,22 @@ INSTALLED_APPS = [
     'django_extensions',
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig',
-    'accounts'
+    'accounts',
+    'crispy_forms',
+    "crispy_bootstrap4",
 ]
+# google SMTP server configue
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'mrrahbarnia@gmail.com'
+# EMAIL_HOST_PASSWORD = 'MrrahbarniA@1374'
+
+# Crispy forms config
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
 
 # robots 
 ROBOTS_USE_HOST = False
