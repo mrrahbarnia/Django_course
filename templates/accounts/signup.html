@@ -10,23 +10,7 @@
 <br/><br/><br/>
 <form method="post" action="{% url 'accounts:signup' %}" class="card p-3 mt-5" autocomplete="off">
 	{% csrf_token %}
-	<div class="form-control">
-		<div class="col-6">
-			{{ form.username|as_crispy_field }}
-		</div>	
-		<div class="col-6">
-			{{ form.email|as_crispy_field }}
-		</div>
-		<div class="col-6">
-			{{ form.password1|as_crispy_field }}
-		</div>
-		<div class="col-6">
-		{{ form.password2|as_crispy_field }}
-		</div>
-		<div class="col-6">
-			{{ form.captcha|as_crispy_field  }}
-		</div>
-	</div>
+		{{form|crispy}}
 	<br/>
 	<input type="submit" value="Sign Up" class="btn btn-outline-primary mt-3"  style="width: 90px;">
 	<br/><hr>

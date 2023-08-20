@@ -3,11 +3,10 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from accounts.form import SignupForm,LoginForm,ForgotForm
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib.auth.models import User
+from accounts.form import SignupForm,LoginForm
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 
 # Create your views here.
@@ -42,22 +41,18 @@ def logout_view(request):
         return HttpResponseRedirect(reverse('accounts:login'))
 
 
+
 def signup_view(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
             form = SignupForm(request.POST)
             if form.is_valid():
                 form.save()
-                username = form.cleaned_data.get('username')
-                raw_password = form.cleaned_data.get('password1')
-                user = authenticate(username=username, password=raw_password)
-                if user is not None:
-                    login(request, user)
-                    messages.success(request,f"Welcome {request.user.username}")
-                    return redirect("/")
+                messages.success(request,"Welcome")
+                return HttpResponseRedirect(reverse('accounts:login'))
             else:
                 messages.error(request,"The information must be valid.")
-                return redirect("/")
+                return HttpResponseRedirect(reverse('accounts:login'))
         else:
             return render(request, 'accounts/signup.html', {"form":SignupForm()})
     else:

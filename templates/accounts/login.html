@@ -13,11 +13,8 @@
 	{% csrf_token %}
 	<div class="form-control">
 		<div class="col-6">
-			{{ form.username|as_crispy_field }}
+			{{ form|crispy }}
 		</div>	
-		<div class="col-6">
-			{{ form.password|as_crispy_field }}
-		</div>
 	<input type="submit" value="Login" class="btn btn-outline-primary mt-3"  style="width: 90px;">
 	<br/><hr>
 	<a href="{% url 'accounts:signup' %}">

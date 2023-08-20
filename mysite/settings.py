@@ -77,7 +77,7 @@ ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
 
 # Site framework
-SITE_ID = 2
+SITE_ID = 3
 
 # Messages configue
 from django.contrib.messages import constants as messages
@@ -226,3 +226,7 @@ INTERNAL_IPS = [
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Custom user config
+AUTH_USER_MODEL = "accounts.CustomUser"
+AUTHENTICATION_BACKENDS = ['accounts.backend.EmailBackend']
