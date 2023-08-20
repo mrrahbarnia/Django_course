@@ -1,6 +1,5 @@
 from django.shortcuts import render,get_object_or_404
 from blog.models import Post,Comment
-from django.utils import timezone
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from blog.forms import CommentForm
 from django.contrib import messages
@@ -10,7 +9,7 @@ from django.urls import reverse
 
 
 def blog_view(request,**kwargs):
-    posts = Post.objects.filter(published_date__lte = timezone.now())
+    posts = Post.objects.filter(status = True)
     if kwargs.get('cat_name') != None:
         posts = posts.filter(category__name=kwargs['cat_name'])
     if kwargs.get('author_username') != None:
@@ -37,7 +36,7 @@ def blog_single(request,pid):
             messages.success(request,"Your comment submitted successfully")
         else:
             messages.error(request,"Your comment didn't submit")
-    post = get_object_or_404(Post,pk=pid,published_date__lte = timezone.now())
+    post = get_object_or_404(Post,pk=pid,status = True)
     comments = Comment.objects.filter(post=post,approved = True)
     form = CommentForm()
     context = {'post':post,'comments':comments,'form':form}
@@ -55,7 +54,7 @@ def blog_single(request,pid):
     
 
 def search_bar(request):
-    posts = Post.objects.filter(published_date__lte = timezone.now())
+    posts = Post.objects.filter(pstatus = True)
     if request.method == 'GET':
         if s := request.GET.get('s'):
             posts = posts.filter(content__contains=s)

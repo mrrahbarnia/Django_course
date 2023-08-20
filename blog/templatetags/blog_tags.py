@@ -25,4 +25,25 @@ def function(pid):
     post = Post.objects.get(pk=pid,status=True)
     return Comment.objects.filter(post=post,approved = True).count()
 
+@register.simple_tag
+def previous_button(post):
+    posts = Post.objects.filter(status = True)
+    posts_list = list(posts)
+    index = posts_list.index(post)
+    if index == len(posts_list)-1:
+        return None
+    else:
+        return posts_list[index+1]
+    
+@register.simple_tag
+def next_button(post):
+    posts = Post.objects.filter(status = True)
+    posts_list = list(posts)
+    index = posts_list.index(post)
+    if index == 0:
+        return None
+    else:
+        return posts_list[index-1]
+
+
 

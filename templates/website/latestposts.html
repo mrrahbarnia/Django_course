@@ -35,7 +35,7 @@
 							<h4 class="title">{{post.title}}</h4>
 						</a>
 						<p>
-							{{post.content|truncatewords:20}}
+							{{post.content|truncatewords:20|safe}}
 						</p>
 						<h6 class="date">{{post.published_date|naturaltime }}</h6>
 					</div>

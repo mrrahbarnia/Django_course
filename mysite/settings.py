@@ -53,28 +53,33 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap4",
 ]
-# google SMTP server configue
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'mrrahbarnia@gmail.com'
-# EMAIL_HOST_PASSWORD = 'MrrahbarniA@1374'
+# Google SMTP server configue
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'DjangoMaktabkhooneh@gmail.com'
+EMAIL_HOST_PASSWORD = 'jeilqomwonccsodx'
+
+# Captcha config
+CAPTCHA_FONT_SIZE = 40
+CAPTCHA_FOREGROUND_COLOR = '#339CFF'
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+
 
 # Crispy forms config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 
-# robots 
+# Robots 
 ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
 
-# site framework
+# Site framework
 SITE_ID = 2
 
-# messages configue
-import os
+# Messages configue
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
@@ -85,13 +90,13 @@ MESSAGE_TAGS = {
         messages.ERROR: 'alert-danger',
  }
 
-# multi-captcha-admin
+# Multi-captcha-admin
 MULTI_CAPTCHA_ADMIN = {
     'engine': 'simple-captcha'
 }
 
 
-# summernote configue
+# Summernote configue
 SUMMERNOTE_THEME = 'bs4'
 SUMMERNOTE_CONFIG = {
     # Using SummernoteWidget - iframe mode, default
