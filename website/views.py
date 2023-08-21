@@ -36,4 +36,3 @@ def news_letter(request):
             return HttpResponseRedirect("/")
     form = NewsletterForm()
     return render(request,"website/contact.html",{"form":form})
-
