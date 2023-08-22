@@ -41,7 +41,20 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     "crispy_bootstrap4",
+    "compressor",
 ]
+
+# Django compressor config
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_OFFLINE = True
+COMPRESS_ENABLED = True
+
 # Google SMTP server configue
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -60,6 +73,8 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
+# Comingsoon page config
+MAINTENANCE_MODE = False
 
 # Robots 
 ROBOTS_USE_HOST = False
@@ -151,12 +166,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation

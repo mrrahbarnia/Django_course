@@ -18,6 +18,8 @@ ROBOTS_USE_SITEMAP = False
 # Site framework
 SITE_ID = 3
 
+MAINTENANCE_MODE = False
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -28,8 +30,7 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+
 STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
